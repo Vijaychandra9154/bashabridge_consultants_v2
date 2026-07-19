@@ -1,3 +1,4 @@
+
 function toggleMenu() {
-  document.querySelector(".site-nav").classList.toggle("show");
+  document.querySelector("nav").classList.toggle("show");
 }
