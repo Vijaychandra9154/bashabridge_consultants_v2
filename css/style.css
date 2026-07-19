@@ -4,7 +4,11 @@
    (the Japanese art of joining broken pottery with gold — languages joined).
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,400,500,600;9..144,1,500&family=Work+Sans:wght@400;500;600;700&display=swap');
+/* Fraunces + Work Sans now loaded via <link> in <head> for faster discovery */
+
+@view-transition {
+  navigation: auto;
+}
 
 :root {
   /* ---- color: light ---- */
@@ -457,3 +461,138 @@ footer.site-foot {
 /* ---- utility ---- */
 .center { text-align: center; }
 .mt-0 { margin-top: 0; }
+
+/* ==========================================================================
+   Signature polish: texture, motion, and micro-interactions
+   ========================================================================== */
+
+/* ---- selection & scrollbar ---- */
+::selection { background: var(--gold-soft); color: #21170a; }
+html { scrollbar-color: var(--gold-soft) var(--paper); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--gold-soft); border-radius: 999px; border: 2px solid var(--paper); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ---- paper grain: a faint tactile texture, not decoration for its own sake ---- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ---- scroll progress bar ---- */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+  z-index: 60;
+  transition: width 0.1s linear;
+}
+
+/* ---- nav underline ---- */
+nav.site-nav a { position: relative; }
+nav.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 12px; right: 12px; bottom: 4px;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+nav.site-nav a:hover::after,
+nav.site-nav a.active::after { transform: scaleX(1); }
+
+/* ---- card hover lift ---- */
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--gold-soft);
+}
+.step { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.step:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+
+.whatsapp-float { transition: transform 0.2s ease; }
+.whatsapp-float:hover { transform: scale(1.08); }
+
+/* ---- scroll reveal (progressive enhancement — invisible without JS) ---- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.js .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+.js .reveal-group > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.js .reveal-group.in-view > * { opacity: 1; transform: translateY(0); }
+.js .reveal-group.in-view > *:nth-child(1) { transition-delay: 0s; }
+.js .reveal-group.in-view > *:nth-child(2) { transition-delay: 0.08s; }
+.js .reveal-group.in-view > *:nth-child(3) { transition-delay: 0.16s; }
+.js .reveal-group.in-view > *:nth-child(4) { transition-delay: 0.24s; }
+.js .reveal-group.in-view > *:nth-child(5) { transition-delay: 0.32s; }
+
+/* ---- hero arch: drawn like a seam being joined ---- */
+.js .hero-art-inline path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-arch 1.6s ease forwards 0.3s;
+}
+.js .hero-art-inline .arch-inner { animation-delay: 0.7s; }
+.js .hero-art-inline .reveal-dot {
+  opacity: 0;
+  animation: fade-in 0.4s ease forwards 1.9s;
+}
+@keyframes draw-arch { to { stroke-dashoffset: 0; } }
+@keyframes fade-in { to { opacity: 1; } }
+
+/* ---- philosophy / pull-quote ---- */
+.pull-quote {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.pull-quote blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  line-height: 1.5;
+  color: var(--ink);
+}
+.pull-quote cite {
+  display: block;
+  margin-top: var(--sp-2);
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal, .js .reveal-group > *, .js .hero-art-inline .reveal-dot {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .js .hero-art-inline path {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
