@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="heroArtTitle">
+  <title id="heroArtTitle">An arched bridge motif in gold and ink, echoing Agra's arch heritage</title>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbf4e5"/>
+      <stop offset="100%" stop-color="#f0e0bd"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bgGrad)"/>
+
+  <circle cx="120" cy="130" r="5" fill="#a8763a" opacity="0.55"/>
+  <path d="M120 130 C 220 170, 260 210, 300 250" fill="none" stroke="#a8763a" stroke-width="2" opacity="0.3"/>
+  <circle cx="780" cy="130" r="5" fill="#a8763a" opacity="0.55"/>
+  <path d="M780 130 C 680 170, 640 210, 600 250" fill="none" stroke="#a8763a" stroke-width="2" opacity="0.3"/>
+
+  <path d="M230 560 H670" fill="none" stroke="#1c2430" stroke-width="6" stroke-linecap="round"/>
+  <path d="M300 560 C300 300 350 140 450 140 C550 140 600 300 600 560" fill="none" stroke="#1c2430" stroke-width="6" stroke-linecap="round"/>
+  <path d="M345 560 C345 340 380 230 450 230 C520 230 555 340 555 560" fill="none" stroke="#a8763a" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="450" cy="140" r="7" fill="#a8763a"/>
+
+  <circle cx="300" cy="560" r="4.5" fill="#1c2430"/>
+  <circle cx="600" cy="560" r="4.5" fill="#1c2430"/>
+</svg>
